@@ -1,13 +1,6 @@
 import { useState } from "react";
-import { Exercise } from "./exercises";
-import { LETTERS } from "./exercises/letters";
-import { ANIMALS } from "./exercises/animals";
+import { Exercise, QUESTION_SETS } from "./exercises";
 import StringComparison from "./StringComparison";
-
-const QUESTION_SETS = [
-  { name: "Litery", exercises: LETTERS },
-  { name: "Zwierzęta", exercises: ANIMALS },
-];
 
 function ResultView({
   exercise,
@@ -16,20 +9,21 @@ function ResultView({
   exercise: Exercise;
   answer: string;
 }) {
-  const correct = exercise.answer === answer;
+  const correctAnswer = exercise.answer.toLocaleLowerCase();
+  const correct = correctAnswer === answer.trim();
   return (
     <div className="mb-4">
       <div>
-        <span className="font-bold">Prawidłowa odpowiedź:</span>{" "}
+        <span className="font-bold text-lg">Prawidłowa odpowiedź:</span>{" "}
         {exercise.answer}
         {correct ? " ✅" : " ❌"}
       </div>
       {!correct && exercise.answer.length > 1 && (
-        <StringComparison correct={exercise.answer} answer={answer} />
+        <StringComparison correct={correctAnswer} answer={answer.trim()} />
       )}
       {exercise.extra && (
         <div>
-          <span className="font-bold">Dodatkowa informacja:</span>{" "}
+          <span className="font-bold text-lg">Dodatkowa informacja:</span>{" "}
           {exercise.extra}
         </div>
       )}
@@ -101,7 +95,7 @@ function App() {
           value={answer}
           onChange={(e) => {
             if (!grade) {
-              setAnswer(e.target.value.trim().toLocaleLowerCase());
+              setAnswer(e.target.value.toLocaleLowerCase());
             }
           }}
           onKeyDown={(e) => {
