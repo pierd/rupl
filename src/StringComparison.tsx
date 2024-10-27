@@ -79,11 +79,11 @@ function StringComparison({ correct, answer }: { correct: string; answer: string
   const getCharStyle = (type: ComparisonResult) => {
     switch (type) {
       case 'match':
-        return 'text-gray-500'; // grey for correct letters
+        return 'text-green-500';
       case 'extra':
-        return 'text-red-500';  // red for extra letters
+        return 'text-red-500 line-through';
       case 'missing':
-        return 'text-green-500'; // green for missing letters
+        return 'text-red-500';
       default:
         return '';
     }
