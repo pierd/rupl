@@ -70,6 +70,8 @@ function App() {
               (q) => q.name === e.target.value
             )!;
             setQuestionSet(newSet);
+            setGrade(false);
+            setAnswer("");
             setExercise(
               newSet.exercises[
                 Math.floor(Math.random() * newSet.exercises.length)
@@ -99,7 +101,7 @@ function App() {
           value={answer}
           onChange={(e) => {
             if (!grade) {
-              setAnswer(e.target.value.trim());
+              setAnswer(e.target.value.trim().toLocaleLowerCase());
             }
           }}
           onKeyDown={(e) => {
